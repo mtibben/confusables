@@ -129,7 +129,7 @@ package confusables
 func makeTables() {
 	fmt.Println(fileHeader)
 	fmt.Println("// confusablesMap")
-	fmt.Println("var confusablesMap = map[rune][]rune{\n")
+	fmt.Print("var confusablesMap = map[rune][]rune{\n\n")
 	for k, v := range confusablesMap {
 		fmt.Printf("0x%.8X: []rune{\n", k)
 		for _, r := range v {
@@ -137,5 +137,5 @@ func makeTables() {
 		}
 		fmt.Println("},")
 	}
-	fmt.Println("}\n")
+	fmt.Print("}\n\n")
 }
