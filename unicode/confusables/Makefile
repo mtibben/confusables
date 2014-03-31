@@ -5,3 +5,5 @@ maketables: maketables.go
 tables:	maketables
 	./maketables > tables.go
 	gofmt -w tables.go
+	go test
+
