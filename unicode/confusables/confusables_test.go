@@ -16,11 +16,23 @@ func TestSkeleton(t *testing.T) {
 }
 
 func TestCompareEqual(t *testing.T) {
-	s1 := "ρ⍺у𝓅𝒂ן"
-	s2 := "𝔭𝒶ỿ𝕡𝕒ℓ"
+	vectors := [][]string{
+		[]string{"ρ⍺у𝓅𝒂ן", "𝔭𝒶ỿ𝕡𝕒ℓ"},
+		[]string{"𝖶", "W"},
+		[]string{"so̷s", "søs"},
+		[]string{"paypal", "paypal"},
+		[]string{"scope", "scope"},
+		[]string{"ø", "o̷"},
+		[]string{"O", "0"},
+		[]string{"ν", "v"},
+		[]string{"Ι", "l"},
+	}
 
-	if !Confusable(s1, s2) {
-		t.Error("Skeleton strings were expected to be equal")
+	for _, v := range vectors {
+		s1, s2 := v[0], v[1]
+		if !Confusable(s1, s2) {
+			t.Errorf("Skeleton strings %+q and %+q were expected to be equal", s1, s2)
+		}
 	}
 }
 
@@ -29,7 +41,7 @@ func TestCompareDifferent(t *testing.T) {
 	s2 := "paypal"
 
 	if Confusable(s1, s2) {
-		t.Error("Skeleton strings were expected to be different")
+		t.Errorf("Skeleton strings %+q and %+q were expected to be different", s1, s2)
 	}
 }
 
