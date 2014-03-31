@@ -96,6 +96,11 @@ func parseCharacter(line string) {
 		log.Fatalf("%5s: %d fields (expected %d)\n", line, len(field), NumField)
 	}
 
+	if !strings.HasPrefix(field[2], "MA") {
+		// The MA table is a superset anyway
+		return
+	}
+
 	sourceRune := parsePoint(field[CSourceCodePoint], line)
 	var targetRune []rune
 	targetCodePoints := strings.Split(field[CTargetCodePoint], " ")
