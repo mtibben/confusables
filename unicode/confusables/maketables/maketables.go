@@ -81,7 +81,13 @@ func parsePoint(pointString string, line string) rune {
 	return point
 }
 
-var confusablesMap = make(map[rune][]rune)
+// Type C encapsulates a line of the confusables.txt files
+type C struct {
+	k rune
+	v []rune
+}
+
+var confusables []C
 
 func parseCharacter(line string) {
 	if len(line) == 0 || line[0] == '#' {
@@ -108,7 +114,7 @@ func parseCharacter(line string) {
 		targetRune = append(targetRune, parsePoint(targetCP, line))
 	}
 
-	confusablesMap[sourceRune] = targetRune
+	confusables = append(confusables, C{sourceRune, targetRune})
 }
 
 func loadUnicodeData() {
@@ -133,9 +139,9 @@ func makeTables() {
 	fmt.Println(fileHeader)
 	fmt.Println("// confusablesMap")
 	fmt.Print("var confusablesMap = map[rune][]rune{\n\n")
-	for k, v := range confusablesMap {
-		fmt.Printf("0x%.8X: []rune{\n", k)
-		for _, r := range v {
+	for _, c := range confusables {
+		fmt.Printf("0x%.8X: []rune{\n", c.k)
+		for _, r := range c.v {
 			fmt.Printf("0x%.8X,\n", r)
 		}
 		fmt.Println("},")
