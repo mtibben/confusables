@@ -2,7 +2,7 @@
 maketables: maketables.go
 	go build $^
 
-tables:	maketables
+tables.go: maketables
 	./maketables > tables.go
 	gofmt -w tables.go
 	go test
