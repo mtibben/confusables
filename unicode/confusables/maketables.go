@@ -1,3 +1,5 @@
+// +build ignore
+
 // Confusables table generator.
 // See http://www.unicode.org/reports/tr39/
 
