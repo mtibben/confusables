@@ -1,3 +1,5 @@
+//go:generate go run maketables.go > tables.go
+
 package confusables
 
 import (
