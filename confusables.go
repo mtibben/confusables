@@ -5,7 +5,7 @@ package confusables
 import (
 	"unicode/utf8"
 
-	"code.google.com/p/go.text/unicode/norm"
+	"golang.org/x/text/unicode/norm"
 )
 
 // TODO: document casefolding approaches
