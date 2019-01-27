@@ -26,7 +26,7 @@ func main() {
 }
 
 var url = flag.String("url",
-	"http://www.unicode.org/Public/security/latest/",
+	"https://www.unicode.org/Public/security/latest/",
 	"URL of Unicode database directory")
 
 var localFiles = flag.Bool("local",
@@ -137,13 +137,15 @@ func loadUnicodeData() {
 	f := openReader("confusables.txt")
 	defer f.Close()
 	scanner := bufio.NewScanner(f)
+	inHeader := true
 	for scanner.Scan() {
-		if parseHeader(scanner.Text()) {
-			break
+		line := scanner.Text()
+		if inHeader {
+			inHeader = !parseHeader(line)
 		}
-	}
-	for scanner.Scan() {
-		parseCharacter(scanner.Text())
+		if !inHeader {
+			parseCharacter(line)
+		}
 	}
 	if scanner.Err() != nil {
 		log.Fatal(scanner.Err())
