@@ -3,7 +3,7 @@
 package confusables
 
 import (
-	"unicode/utf8"
+	"bytes"
 
 	"golang.org/x/text/unicode/norm"
 )
@@ -15,6 +15,10 @@ import (
 // TODO: DOC you might want to store the Skeleton and check against it later
 // TODO: implement xidmodifications.txt restricted characters
 
+func lookupReplacement(r rune) string {
+	return confusablesMap[r]
+}
+
 // Skeleton converts a string to it's "skeleton" form
 // as descibed in http://www.unicode.org/reports/tr39/#Confusable_Detection
 func Skeleton(s string) string {
@@ -24,15 +28,30 @@ func Skeleton(s string) string {
 
 	// 2. Successively mapping each source character in X to the target string
 	// according to the specified data table
-	for i, w := 0, 0; i < len(s); i += w {
-		char, width := utf8.DecodeRuneInString(s[i:])
-		replacement, exists := confusablesMap[char]
-		if exists {
-			s = s[:i] + replacement + s[i+width:]
-			w = len(replacement)
-		} else {
-			w = width
+	var buf bytes.Buffer
+	changed := false // fast path: if this remains false, keep s intact
+	prevPos := 0
+	var replacement string
+	for i, r := range s {
+		if changed && replacement == "" {
+			buf.WriteString(s[prevPos:i])
 		}
+		prevPos = i
+		replacement = lookupReplacement(r)
+		if replacement != "" {
+			if !changed {
+				changed = true
+				// first replacement: copy over the previously unmodified text
+				buf.WriteString(s[:i])
+			}
+			buf.WriteString(replacement)
+		}
+	}
+	if changed && replacement == "" {
+		buf.WriteString(s[prevPos:]) // loop-and-a-half
+	}
+	if changed {
+		s = buf.String()
 	}
 
 	// 3. Reapplying NFD
