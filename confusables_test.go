@@ -26,6 +26,7 @@ func TestCompareEqual(t *testing.T) {
 		[]string{"O", "0"},
 		[]string{"ν", "v"},
 		[]string{"Ι", "l"},
+		[]string{"warning", "waming"},
 	}
 
 	for _, v := range vectors {
