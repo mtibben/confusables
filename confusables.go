@@ -10,8 +10,6 @@ import (
 
 // TODO: document casefolding approaches
 // (suggest to force casefold strings; explain how to catch paypal - pAypal)
-// TODO: implement tables other than MA
-// (is it secure, even if overprocessing, to check only against MA?)
 // TODO: DOC you might want to store the Skeleton and check against it later
 // TODO: implement xidmodifications.txt restricted characters
 
