@@ -46,6 +46,44 @@ func TestCompareDifferent(t *testing.T) {
 	}
 }
 
+func TestTweaksCompareEqual(t *testing.T) {
+	vectors := [][]string{
+		[]string{"ρ⍺у𝓅𝒂ן", "𝔭𝒶ỿ𝕡𝕒ℓ"},
+		[]string{"𝖶", "W"},
+		[]string{"so̷s", "søs"},
+		[]string{"paypal", "paypal"},
+		[]string{"scope", "scope"},
+		[]string{"ø", "o̷"},
+		[]string{"ν", "v"},
+		[]string{"Ι", "l"},
+		[]string{"Ӏ", "I"}, // palochka
+		[]string{"shivaram", "shivara𑜀"}, // 0x11700 "ahom letter ka"
+	}
+
+	for _, v := range vectors {
+		s1, s2 := v[0], v[1]
+		if SkeletonTweaked(s1) != SkeletonTweaked(s2) {
+			t.Errorf("Skeleton strings %+q and %+q were expected to be equal", s1, s2)
+		}
+	}
+}
+
+func TestTweaksCompareDifferent(t *testing.T) {
+	vectors := [][]string{
+		[]string{"0", "O"},
+		[]string{"1", "l"},
+		[]string{"I", "l"},
+		[]string{"I", "1"},
+		[]string{"shivaram", "shivararn"},
+	}
+
+	for _, v := range vectors {
+		if SkeletonTweaked(v[0]) == SkeletonTweaked(v[1]) {
+			t.Errorf("Skeleton strings %+q and %+q were expected to be different", v[0], v[1])
+		}
+	}
+}
+
 func BenchmarkSkeletonNoop(b *testing.B) {
 	s := "skeleton"
 
