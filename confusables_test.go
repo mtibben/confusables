@@ -54,6 +54,15 @@ func BenchmarkSkeletonNoop(b *testing.B) {
 	}
 }
 
+func BenchmarkSkeletonTweakedNoop(b *testing.B) {
+	s := "skeleton"
+
+	for i := 0; i < b.N; i++ {
+		SkeletonTweaked(s)
+	}
+}
+
+
 func BenchmarkSkeleton(b *testing.B) {
 	s := "ѕ𝗄℮|е𝗍ο𝔫"
 
