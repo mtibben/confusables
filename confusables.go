@@ -20,12 +20,10 @@ func lookupReplacement(r rune) string {
 }
 
 func lookupReplacementTweaked(r rune) string {
-	switch r {
-	case '0', '1', 'I', 'm':
-		return ""
-	default:
-		return confusablesMap[r]
+	if replacement, ok := tweaksMap[r]; ok {
+		return replacement
 	}
+	return confusablesMap[r]
 }
 
 func skeletonBase(s string, lookup lookupFunc) string {
