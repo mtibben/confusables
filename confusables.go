@@ -71,9 +71,8 @@ func Skeleton(s string) string {
 	return skeletonBase(s, lookupReplacement)
 }
 
-// SkeletonTweaked is like Skeleton, but it does not treat ASCII alphanumerics
-// as confusable (whereas the standard table treats 0 as confusable with O,
-// 1 and I as confusable with l, and m as confusable with rn)
+// SkeletonTweaked is like Skeleton, but it implements some custom overrides
+// to the confusables table (currently it removes the m -> rn mapping):
 func SkeletonTweaked(s string) string {
 	return skeletonBase(s, lookupReplacementTweaked)
 }
