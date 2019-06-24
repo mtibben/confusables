@@ -19,6 +19,7 @@ var tweaksMap = map[rune]string{
 
 	// these characters are confusable with I, hence the official table
 	// maps them to l (`grep "LATIN SMALL LETTER L" confusables.txt`)
+	0x0399: "I", // 0399 ;	006C ;	MA	# ( Ι → l ) GREEK CAPITAL LETTER IOTA → LATIN SMALL LETTER L	# 
 	0x0406: "I", // 0406 ;	006C ;	MA	# ( І → l ) CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I → LATIN SMALL LETTER L	# 
 	0x04C0: "I", // 04C0 ;	006C ;	MA	# ( Ӏ → l ) CYRILLIC LETTER PALOCHKA → LATIN SMALL LETTER L	# 
 
