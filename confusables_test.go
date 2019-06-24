@@ -70,10 +70,6 @@ func TestTweaksCompareEqual(t *testing.T) {
 
 func TestTweaksCompareDifferent(t *testing.T) {
 	vectors := [][]string{
-		[]string{"0", "O"},
-		[]string{"1", "l"},
-		[]string{"I", "l"},
-		[]string{"I", "1"},
 		[]string{"shivaram", "shivararn"},
 	}
 
