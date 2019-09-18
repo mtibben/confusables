@@ -8,8 +8,9 @@ See http://www.unicode.org/reports/tr39/
 ```
 import "github.com/mtibben/confusables"
 
-confusables.Skeleton("𝔭𝒶ỿ𝕡𝕒ℓ")  # "paypal"
-confusables.Confusable("𝔭𝒶ỿ𝕡𝕒ℓ", "paypal")  # true
+sk := confusables.New(nil)
+sk.Skeleton("𝔭𝒶ỿ𝕡𝕒ℓ")  # "paypal"
+sk.Confusable("𝔭𝒶ỿ𝕡𝕒ℓ", "paypal")  # true
 ```
 
 *Note on the use of `Skeleton`, from TR39:*

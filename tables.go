@@ -5,13 +5,13 @@ package confusables
 // Following is the original header of the source confusables.txt file
 //
 // confusables.txt
-// Date: 2018-11-05, 07:39:47 GMT
-// © 2018 Unicode®, Inc.
+// Date: 2019-04-01, 21:59:19 GMT
+// © 2019 Unicode®, Inc.
 // Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 // For terms of use, see http://www.unicode.org/terms_of_use.html
 //
 // Unicode Security Mechanisms for UTS #39
-// Version: 12.0.0
+// Version: 12.1.0
 //
 // For documentation and usage, see http://www.unicode.org/reports/tr39
 //

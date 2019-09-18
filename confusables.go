@@ -13,10 +13,26 @@ import (
 // TODO: DOC you might want to store the Skeleton and check against it later
 // TODO: implement xidmodifications.txt restricted characters
 
-func mapConfusableRunes(ss string) string {
+type Skeleton interface {
+	Skeleton(ss string) string
+	Confusable(x, y string) bool
+}
+
+func New(confusables map[rune]string) Skeleton {
+	if confusables == nil {
+		confusables = confusablesMap
+	}
+	return &skeleton{confusables: confusables}
+}
+
+type skeleton struct {
+	confusables map[rune]string
+}
+
+func (s *skeleton) mapConfusableRunes(ss string) string {
 	var buffer bytes.Buffer
 	for _, r := range ss {
-		replacement, replacementExists := confusablesMap[r]
+		replacement, replacementExists := s.confusables[r]
 		if replacementExists {
 			buffer.WriteString(replacement)
 		} else {
@@ -32,12 +48,12 @@ func mapConfusableRunes(ss string) string {
 //   2. Successively mapping each source character in X to the target string
 //      according to the specified data table
 //   3. Reapplying NFD
-func Skeleton(s string) string {
+func (s *skeleton) Skeleton(ss string) string {
 	return norm.NFD.String(
-		mapConfusableRunes(
-			norm.NFD.String(s)))
+		s.mapConfusableRunes(
+			norm.NFD.String(ss)))
 }
 
-func Confusable(x, y string) bool {
-	return Skeleton(x) == Skeleton(y)
+func (s *skeleton) Confusable(x, y string) bool {
+	return s.Skeleton(x) == s.Skeleton(y)
 }
